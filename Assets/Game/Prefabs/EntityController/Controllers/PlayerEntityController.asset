@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac2ac297ff04c849598ab5c676bdf8c, type: 3}
   m_Name: PlayerEntityController
   m_EditorClassIdentifier: 
+  movement: {fileID: -1351312292102441944, guid: 59baf812ed907c14bb428831aadc3e62,
+    type: 3}
+  action1: {fileID: -4470215106717690323, guid: 59baf812ed907c14bb428831aadc3e62,
+    type: 3}
+  action2: {fileID: 8931792065992397845, guid: 59baf812ed907c14bb428831aadc3e62, type: 3}

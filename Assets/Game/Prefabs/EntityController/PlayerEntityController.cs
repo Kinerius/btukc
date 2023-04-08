@@ -1,44 +1,34 @@
-﻿using UnityEngine;
+﻿using Game.Input;
+using Stats;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Game
 {
     [CreateAssetMenu(menuName = "Controllers/PlayerEntityController", fileName = "PlayerEntityController", order = 0)]
     public class PlayerEntityController : EntityController
     {
-        public float tempSpeed = 5;
-        private CharacterController characterController;
-        private CollisionFlags lastFlags;
+        public InputActionReference movement;
+        public InputActionReference action1;
+        public InputActionReference action2;
+        private Vector3 movementDirection;
+        private Entity entity;
 
         public override void Initialize(Entity entity)
         {
-            characterController = entity.GetComponent<CharacterController>();
+            this.entity = entity;
+            movement.action.Enable();
+            action1.action.Enable();
+            action2.action.Enable();
         }
 
         public override void Update()
         {
-            Vector3 direction = new Vector3();
+            var inputMovementDirection = movement.action.ReadValue<Vector2>();
+            movementDirection.x = inputMovementDirection.x;
+            movementDirection.z = inputMovementDirection.y;
 
-            if (Input.GetKey(KeyCode.W))
-            {
-                direction.z = 1;
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                direction.z = -1;
-            }
-
-            if (Input.GetKey(KeyCode.A))
-            {
-                direction.x = -1;
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                direction.x = 1;
-            }
-
-            direction = direction.normalized * tempSpeed * Time.deltaTime;
-            direction.y = Physics.gravity.y * Time.deltaTime;
-            lastFlags = characterController.Move(direction);
+            entity.Move(movementDirection);
         }
     }
 }
