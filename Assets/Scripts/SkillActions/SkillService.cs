@@ -10,25 +10,19 @@ namespace SkillActions
     {
         private readonly LevelManager levelManager;
         private readonly IEntity owner;
-        private readonly List<SkillAction> skills = new();
-        private Queue<SkillActionTriggerData> dataPool = new();
+        private readonly List<SkillAction> skills = new ();
+        private Queue<SkillActionTriggerData> dataPool = new ();
 
         public SkillService(LevelManager levelManager)
         {
             this.levelManager = levelManager;
 
-            for (int i = 0; i < 20; i++)
-            {
-                dataPool.Enqueue(new SkillActionTriggerData());
-            }
+            for (int i = 0; i < 20; i++) { dataPool.Enqueue(new SkillActionTriggerData()); }
         }
 
         private SkillActionTriggerData GetTriggerData()
         {
-            if (dataPool.Count == 0)
-            {
-                dataPool.Enqueue(new SkillActionTriggerData());
-            }
+            if (dataPool.Count == 0) { dataPool.Enqueue(new SkillActionTriggerData()); }
 
             var skillActionTriggerData = dataPool.Dequeue();
             skillActionTriggerData.Reset();
@@ -48,13 +42,11 @@ namespace SkillActions
 
         public void StartSkillAction(int i, RaycastHit hit, IEntity owner, EntityView view)
         {
-            if (skills.Count > 0 && i < skills.Count)
-            {
-                var skillAction = skills[i];
-                var dataTargetPosition = hit.point;
+            if (skills.Count <= 0 || i >= skills.Count) return;
+            var skillAction = skills[i];
+            var dataTargetPosition = hit.point;
 
-                StartSkillAction(skillAction, owner, view, dataTargetPosition);
-            }
+            StartSkillAction(skillAction, owner, view, dataTargetPosition);
         }
 
         public void StartSkillAction(SkillAction skillAction, IEntity owner, EntityView view, Vector3 dataTargetPosition)

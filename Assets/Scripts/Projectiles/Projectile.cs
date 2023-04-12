@@ -18,16 +18,21 @@ namespace Projectiles
         private CancellationTokenSource cancellationTokenSource;
         private Action<CollisionEvent> onCollisionEvent;
 
-        public void Setup(float speed, Vector3 direction, int layerToIgnore, GlobalClock globalClock, Action<CollisionEvent> onCollisionEvent)
+        public void Setup(Vector3 initialPosition, float speed, Vector3 direction, int layerToIgnore, GlobalClock globalClock, Action<CollisionEvent> onCollisionEvent)
         {
+            rigidbody.isKinematic = true;
+            transform.position = initialPosition;
             this.onCollisionEvent = onCollisionEvent;
             this.layerToIgnore = layerToIgnore;
-            rigidbody.velocity = speed * direction;
-            transform.forward = direction;
 
             destroyCooldown = new Cooldown(globalClock, TimeSpan.FromSeconds(3), true);
             cancellationTokenSource = new CancellationTokenSource();
+
             DestroyAfterTime(cancellationTokenSource.Token);
+
+            rigidbody.isKinematic = false;
+            rigidbody.velocity = speed * direction;
+            transform.forward = direction;
         }
 
         private async UniTask DestroyAfterTime(CancellationToken cancellationToken)

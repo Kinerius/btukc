@@ -49,6 +49,7 @@ public class SkillAction
         StartSkillAction(data, levelManager, statRepository);
     }
 
+    // TODO: connect cancellation token
     private async UniTask StartSkillAction(SkillActionTriggerData data, LevelManager levelManager, StatRepository repository)
     {
         isOnUse = true;
@@ -74,5 +75,5 @@ public class SkillAction
 
     }
 
-    
+
 }

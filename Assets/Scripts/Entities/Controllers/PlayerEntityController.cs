@@ -1,5 +1,6 @@
 ﻿using Game.Input;
 using Stats;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +21,19 @@ namespace Game
             movement.action.Enable();
             action1.action.Enable();
             action2.action.Enable();
+
+            action1.action.performed += OnAction1;
+            action2.action.performed += OnAction2;
+        }
+
+        private void OnAction1(InputAction.CallbackContext obj)
+        {
+            entity.StartAction(0);
+        }
+
+        private void OnAction2(InputAction.CallbackContext obj)
+        {
+            entity.StartAction(1);
         }
 
         public override void Update()

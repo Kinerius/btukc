@@ -33,7 +33,14 @@ public class PoolManager : IPoolManager
         return obj;
     }
 
-    private PooledObject CreateInstance(PooledObject reference, Transform poolRootTransform) => Object.Instantiate(reference, poolRootTransform);
+    private PooledObject CreateInstance(PooledObject reference, Transform poolRootTransform)
+    {
+        var obj = Object.Instantiate(reference, poolRootTransform);
+        obj.gameObject.SetActive(false);
+        return obj;
+    }
+
+
 }
 
 public interface IPoolManager

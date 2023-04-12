@@ -9,5 +9,7 @@ namespace Game.Entities
         Vector3 GetPosition();
 
         int GetLayer();
+
+        void StartAction(int indexAction);
     }
 }

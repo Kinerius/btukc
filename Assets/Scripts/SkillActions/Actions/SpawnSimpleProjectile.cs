@@ -22,7 +22,6 @@ namespace SkillActions.Actions
             var anchorTransformPosition = anchorTransform.position;
 
             var instance = levelManager.poolManager.GetInactiveObject(prefabGameObject).GetComponent<Projectile>();
-            instance.gameObject.SetActive(true);
             instance.transform.position = anchorTransformPosition;
 
             var dataTargetPosition = data.targetPosition;
@@ -32,7 +31,7 @@ namespace SkillActions.Actions
             var targetDirection = (dataTargetPosition - dataOwnerPosition).normalized;
 
             var projectileSpeed = skillStats.GetOrAddStat("ProjectileSpeed");
-            instance.Setup(projectileSpeed.Value, targetDirection, data.owner.GetLayer(), levelManager.globalClock, evt =>
+            instance.Setup(anchorTransformPosition, projectileSpeed.Value, targetDirection, data.owner.GetLayer(), levelManager.globalClock, evt =>
             {
                 if (evt.entity != null)
                 {
@@ -41,7 +40,8 @@ namespace SkillActions.Actions
                     onHit.StartAction(modifiedData, levelManager, skillStats);
                 }
             });
-            
+            instance.gameObject.SetActive(true);
+
             return UniTask.CompletedTask;
         }
     }
