@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 935f7a47985d401c86ed4702e8ab6ff1, type: 3}
+  m_Name: MeleeAttack
+  m_EditorClassIdentifier: 
+  abilityStats: {fileID: 11400000, guid: 6fda317bdd3f7614faf0e43d45902626, type: 2}
+  actions:
+  - {fileID: 11400000, guid: 36812ddd12fc17f4e8deca492c96aaea, type: 2}
+  - {fileID: 11400000, guid: d5ee69ea21e0e634ca54b7f9627486e1, type: 2}
+  - {fileID: 11400000, guid: db310fe32bd49a34d875970731222c82, type: 2}
