@@ -1,7 +1,8 @@
 ﻿using Cysharp.Threading.Tasks;
 using Game.Level;
-using Projectiles;
+using SkillActions.Views;
 using Stats;
+using System;
 using UnityEngine;
 
 namespace SkillActions.Actions
@@ -31,15 +32,16 @@ namespace SkillActions.Actions
             var targetDirection = (dataTargetPosition - dataOwnerPosition).normalized;
 
             var projectileSpeed = skillStats.GetOrAddStat("ProjectileSpeed");
-            instance.Setup(anchorTransformPosition, projectileSpeed.Value, targetDirection, data.owner.GetLayer(), levelManager.globalClock, evt =>
+
+            void OnCollisionEvent(CollisionEvent evt)
             {
-                if (evt.entity != null)
-                {
-                    var modifiedData = data;
-                    modifiedData.targetEntity = evt.entity;
-                    onHit.StartAction(modifiedData, levelManager, skillStats);
-                }
-            });
+                if (evt.entity == null) return;
+                var modifiedData = data;
+                modifiedData.targetEntity = evt.entity;
+                onHit.StartAction(modifiedData, levelManager, skillStats);
+            }
+
+            instance.Setup(anchorTransformPosition, projectileSpeed.Value, targetDirection, data.owner.GetLayer(), levelManager.globalClock, OnCollisionEvent);
             instance.gameObject.SetActive(true);
 
             return UniTask.CompletedTask;

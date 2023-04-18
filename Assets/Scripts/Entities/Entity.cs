@@ -22,21 +22,33 @@ namespace Game
         private Quaternion lastLookRotation;
         private EventHandler eventHandler;
         private SkillService skillService;
+        private bool isActionEnabled;
 
         public IStatService Stats => statService;
         public EventHandler EventHandler => eventHandler;
+
         public EntityAnimationController GetAnimationController() =>
             viewTransform.GetAnimationController();
+
         public int GetLayer() =>
             gameObject.layer;
 
         public void StartAction(int indexAction)
         {
-            skillService.StartSkillAction(indexAction, new RaycastHit() { point = transform.position + (viewTransform.transform.forward * 2)}, this, viewTransform);
+            if (!isActionEnabled) return;
+
+            skillService.StartSkillAction(indexAction, new RaycastHit
+                { point = transform.position + (viewTransform.transform.forward * 2) }, this, viewTransform);
+        }
+
+        public void ToggleActions(bool enabled)
+        {
+            isActionEnabled = enabled;
         }
 
         private void Start()
         {
+            isActionEnabled = true;
             statService = new StatService(stats.AsStatRepository());
             movementSpeed = statService.ObserveStat("MovementSpeed");
             eventHandler = new EventHandler();
@@ -60,6 +72,8 @@ namespace Game
 
         public void Move(Vector3 movementDirection)
         {
+            if (!isActionEnabled) return;
+
             var finalDirection = movementDirection * movementSpeed.Value * Time.deltaTime;
 
             if (finalDirection.sqrMagnitude > 0)

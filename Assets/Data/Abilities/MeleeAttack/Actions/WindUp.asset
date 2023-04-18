@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df9614a8891e4ad38591e69b7444c1c2, type: 3}
-  m_Name: AnimateAttackAndDealDamage
+  m_Script: {fileID: 11500000, guid: 7cc1ec097ddd45198b0c7069fe2905cd, type: 3}
+  m_Name: WindUp
   m_EditorClassIdentifier: 
-  animationName: MeleeAttack
-  events:
-  - eventName: Attack
-    action: {fileID: 11400000, guid: 7522182b3142a2046b268233037cab06, type: 2}
-  waitForAnimationToEnd: 1
+  timeInSeconds: 0.1

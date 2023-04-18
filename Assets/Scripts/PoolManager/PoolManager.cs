@@ -20,6 +20,12 @@ public class PoolManager : IPoolManager
 
     public PooledObject GetInactiveObject(PooledObject reference)
     {
+        if (reference == null)
+        {
+            Debug.LogError("You are trying to spawn a null object!");
+            return null;
+        }
+
         if (!pools.ContainsKey(reference))
         {
             var poolRoot = new GameObject("Pool-" + reference.name);

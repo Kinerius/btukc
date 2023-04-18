@@ -7,6 +7,9 @@ namespace SkillActions
 {
     public abstract class ScriptableAction : ScriptableObject, IAction
     {
-        public abstract UniTask StartAction(SkillActionTriggerData data, LevelManager levelManager, StatRepository skillStats);
+        public virtual async UniTask StartAction(SkillActionTriggerData data, LevelManager levelManager, StatRepository skillStats)
+        {
+            await UniTask.CompletedTask;
+        }
     }
 }

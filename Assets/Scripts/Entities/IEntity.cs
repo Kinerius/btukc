@@ -11,5 +11,7 @@ namespace Game.Entities
         int GetLayer();
 
         void StartAction(int indexAction);
+
+        void ToggleActions(bool enabled);
     }
 }

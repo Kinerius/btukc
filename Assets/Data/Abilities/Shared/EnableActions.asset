@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52ee09c432164b4885cf6ec9aabc5b8c, type: 3}
-  m_Name: LookAndStop
+  m_Script: {fileID: 11500000, guid: b4a73262a6b140559f0cfbaee99c7da7, type: 3}
+  m_Name: EnableActions
   m_EditorClassIdentifier: 
+  enabled: 1

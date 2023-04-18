@@ -16,7 +16,7 @@ namespace SkillActions.Actions
             {
                 return;
             }
-            
+
             await UniTask.WaitUntil(() =>
             {
                 data.view.SetDestination(data.targetPosition);
@@ -25,14 +25,10 @@ namespace SkillActions.Actions
             });
         }
 
-        private bool IsAtDistance(SkillActionTriggerData data)
-        {
-            return Vector3.Distance(data.view.transform.position, GetTargetPosition(data)) <= minDistance;
-        }
+        private bool IsAtDistance(SkillActionTriggerData data) =>
+            Vector3.Distance(data.view.transform.position, GetTargetPosition(data)) <= minDistance;
 
-        private Vector3 GetTargetPosition(SkillActionTriggerData data)
-        {
-            return data.targetEntity?.GetPosition() ?? data.targetPosition;
-        }
+        private Vector3 GetTargetPosition(SkillActionTriggerData data) =>
+            data.targetEntity?.GetPosition() ?? data.targetPosition;
     }
 }
