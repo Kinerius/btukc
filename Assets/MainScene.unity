@@ -4657,6 +4657,12 @@ MonoBehaviour:
   camera: {fileID: 848662221}
   player: {fileID: 8819883416372835567}
   globalClock: {fileID: 1650698562}
+  mousePosition: {fileID: 3316073192204785146, guid: 59baf812ed907c14bb428831aadc3e62,
+    type: 3}
+  createEnemy: {fileID: -4548514197228699200, guid: 59baf812ed907c14bb428831aadc3e62,
+    type: 3}
+  entityPrefab: {fileID: 3830014734238864221, guid: 52272b9228e6bbc44853f21ab0553836,
+    type: 3}
 --- !u!4 &1005821010
 Transform:
   m_ObjectHideFlags: 0

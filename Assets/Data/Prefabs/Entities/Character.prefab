@@ -1082,7 +1082,7 @@ Transform:
   - {fileID: 3906405191830536009}
   - {fileID: 603957352726246695}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &1036538544995014348
 CharacterController:
@@ -1495,7 +1495,7 @@ GameObject:
   - component: {fileID: 603957352726246695}
   - component: {fileID: 20659117724814327}
   - component: {fileID: 5869590100731137912}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EnemyDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}

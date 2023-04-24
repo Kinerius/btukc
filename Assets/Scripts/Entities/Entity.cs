@@ -5,7 +5,6 @@ using Game.Entities;
 using Handlers;
 using SkillActions;
 using Stats;
-using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 using EventHandler = Entities.EventHandler;
@@ -69,6 +68,8 @@ namespace Game
             foreach (SkillActionData skillActionData in skills)
                 skillService.AddSkill(skillActionData.AsSkillAction());
 
+            // multiple entities might have the same controller so we split the reference
+            entityController = Instantiate(entityController);
             entityController.Initialize(this, levelView.LevelManager);
             health.OnChanged += OnHealthChanged;
 
