@@ -13,6 +13,7 @@ public class SkillAction
 {
     private readonly List<IAction> sequences;
     private readonly StatRepository statRepository;
+    private bool isSetup;
     public Cooldown cooldown { get; private set; }
     public bool isOnUse { get; private set; }
 
@@ -24,6 +25,7 @@ public class SkillAction
 
     public void Setup(GlobalClock globalClock)
     {
+        isSetup = true;
         var cooldownStat = statRepository.GetStat("cooldown");
         var rateOfFireStat = statRepository.GetStat("rateoffire");
 
@@ -43,6 +45,7 @@ public class SkillAction
 
     public void StartSkillAction(SkillActionTriggerData data, LevelManager levelManager)
     {
+        if (!isSetup) Debug.LogError("Skill was not setup");
         if (!cooldown.IsUsable()) return;
 
         cooldown.Use();

@@ -1,6 +1,5 @@
-﻿using Game.Input;
-using Stats;
-using System;
+﻿using Game.Entities;
+using Game.Level;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,9 +12,9 @@ namespace Game
         public InputActionReference action1;
         public InputActionReference action2;
         private Vector3 movementDirection;
-        private Entity entity;
+        private IEntity entity;
 
-        public override void Initialize(Entity entity)
+        public override void Initialize(IEntity entity, LevelManager levelManager)
         {
             this.entity = entity;
             movement.action.Enable();
@@ -42,7 +41,7 @@ namespace Game
             movementDirection.x = inputMovementDirection.x;
             movementDirection.z = inputMovementDirection.y;
 
-            entity.Move(movementDirection);
+            entity.GetView().MoveTowards(movementDirection);
         }
     }
 }

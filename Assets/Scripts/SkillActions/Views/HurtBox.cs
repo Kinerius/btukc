@@ -2,6 +2,7 @@
 
 using Handlers;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Utils;
 
@@ -11,7 +12,6 @@ namespace SkillActions.Views
     {
         private int layerToIgnore;
         private Action<CollisionEvent> onCollisionEvent;
-
         public void Setup(Vector3 initialPosition, Vector3 forward, Vector3 size, int layerToIgnore, Action<CollisionEvent> onCollisionEvent)
         {
             var t = transform;
@@ -23,17 +23,15 @@ namespace SkillActions.Views
             this.layerToIgnore = layerToIgnore;
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider other)
         {
-            if (LayerUtils.AreNotEqual(collision.gameObject.layer, layerToIgnore)
-                && LayerUtils.AreNotEqual(collision.gameObject.layer, gameObject.layer))
+            if (LayerUtils.AreNotEqual(other.gameObject.layer, layerToIgnore)
+                && LayerUtils.AreNotEqual(other.gameObject.layer, gameObject.layer))
             {
-                if (EntityHandler.TryGet(collision.collider, out var targetEntity))
-                    onCollisionEvent.Invoke(new CollisionEvent {entity = targetEntity, point = collision.contacts[0].point});
+                if (EntityHandler.TryGet(other, out var targetEntity))
+                    onCollisionEvent.Invoke(new CollisionEvent {entity = targetEntity, point = gameObject.transform.position});
                 else
-                    onCollisionEvent.Invoke(new CollisionEvent {point = collision.contacts[0].point});
-
-                ReturnToPool();
+                    onCollisionEvent.Invoke(new CollisionEvent {point = gameObject.transform.position});
             }
         }
 

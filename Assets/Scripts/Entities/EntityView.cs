@@ -3,16 +3,17 @@ using System.Linq;
 using Character;
 using Entities.Animation;
 using Entities.Views;
+using Game;
 using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Entities
 {
-    public abstract class EntityView : MonoBehaviour
+    public abstract class EntityView : MonoBehaviour, IEntityView
     {
         [SerializeField] private EntityAnimationDataPack animationDataPack;
         [SerializeField] private UnityEngine.Animation animationComponent;
-        
+
         private Dictionary<string,Transform> anchors;
         private EntityAnimationController animationController;
 
@@ -30,7 +31,7 @@ namespace Entities
         }
 
         public EntityAnimationController GetAnimationController() => animationController;
-        
+
         public Transform GetAnchor(string anchorTag)
         {
             if (anchors.ContainsKey(anchorTag)) return anchors[anchorTag];
@@ -44,6 +45,8 @@ namespace Entities
         public abstract void LookAt(Vector3 targetPosition);
 
         public abstract void Teleport(Vector3 targetPosition);
-        public abstract void SetDestination(Vector3 position);
+        public abstract void MoveTowards(Vector3 position);
+
+        public abstract void ToggleMovement(bool enabled);
     }
 }

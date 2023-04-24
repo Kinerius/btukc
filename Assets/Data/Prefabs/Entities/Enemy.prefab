@@ -56,14 +56,16 @@ GameObject:
   - component: {fileID: 9171183955228717120}
   - component: {fileID: 2273855936691268256}
   - component: {fileID: 3830014734238864221}
-  - component: {fileID: 6295550328503456399}
+  - component: {fileID: 966348222511312607}
+  - component: {fileID: 2596535119405543828}
+  - component: {fileID: 5352349660813440730}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9171183955228717120
 Transform:
   m_ObjectHideFlags: 0
@@ -118,13 +120,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91268ab01d9c0354798b85ea73739676, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 827413872d24c1046b5eb5f0cb8d283b, type: 2}
+  stats: {fileID: 11400000, guid: 66881a1a5ea8cd540869ae4ebd7a3361, type: 2}
   skills:
   - {fileID: 11400000, guid: 2619b2c886631e243b9664b200fbfa29, type: 2}
   - {fileID: 11400000, guid: 7777987bc72ab0b40b67902f7ef38442, type: 2}
-  entityController: {fileID: 11400000, guid: 8a1415aa66c76524691f6cea838c9464, type: 2}
-  viewTransform: {fileID: 6295550328503456399}
---- !u!114 &6295550328503456399
+  entityController: {fileID: 11400000, guid: 4e6a082be16ee9145a129c6d8c37f8eb, type: 2}
+  viewTransform: {fileID: 966348222511312607}
+--- !u!114 &966348222511312607
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,16 +135,61 @@ MonoBehaviour:
   m_GameObject: {fileID: 6336208179763123010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a5808a4d7ac71d42b296fd3ec3b4cf6, type: 3}
+  m_Script: {fileID: 11500000, guid: dbf830ffcb3241d69a2ef6a083704864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animationDataPack: {fileID: 11400000, guid: 025aefa528bfe2642b5ab0948b8d36c0, type: 2}
   animationComponent: {fileID: 7360259157375971227}
-  _characterController: {fileID: 2273855936691268256}
-  maxPathLength: 20
-  speed: 7
-  rotationSpeed: 180
-  directionalMovementPercent: 50
+  agent: {fileID: 5352349660813440730}
+--- !u!54 &2596535119405543828
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6336208179763123010}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 2
+--- !u!195 &5352349660813440730
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6336208179763123010}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 360
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &6408962478074073696
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +203,6 @@ GameObject:
   - component: {fileID: 6726398362065769934}
   - component: {fileID: 4457406872608776802}
   - component: {fileID: 7462564742408767273}
-  - component: {fileID: 4737050328932719036}
   - component: {fileID: 7360259157375971227}
   m_Layer: 7
   m_Name: View
@@ -1044,7 +1090,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 81
+  m_VersionIndex: 147
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1100,7 +1146,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ec0d9ce8fbc9a9e4a8ae60d056368976, type: 2}
+  - {fileID: 2100000, guid: b9ed84361d78fd546aafd2951735a309, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1130,28 +1176,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6408962478074073696}
   m_Mesh: {fileID: 0}
---- !u!64 &4737050328932719036
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6408962478074073696}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!111 &7360259157375971227
 Animation:
   m_ObjectHideFlags: 0
@@ -1180,7 +1204,6 @@ GameObject:
   - component: {fileID: 2720472869721128635}
   - component: {fileID: 2304849016296984965}
   - component: {fileID: 8954810506788433163}
-  - component: {fileID: 30015692313979015}
   m_Layer: 7
   m_Name: Prism
   m_TagString: Untagged
@@ -1378,7 +1401,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 799
+  m_VersionIndex: 865
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1430,7 +1453,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4611fea5e7d305e40a16283efb603c24, type: 2}
+  - {fileID: 2100000, guid: b9ed84361d78fd546aafd2951735a309, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1459,26 +1482,4 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9080181925659513340}
-  m_Mesh: {fileID: 0}
---- !u!64 &30015692313979015
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9080181925659513340}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
   m_Mesh: {fileID: 0}

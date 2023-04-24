@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 935f7a47985d401c86ed4702e8ab6ff1, type: 3}
-  m_Name: MeleeAttack
+  m_Name: Enemy Slow Attack
   m_EditorClassIdentifier: 
   abilityStats: {fileID: 11400000, guid: 6fda317bdd3f7614faf0e43d45902626, type: 2}
   actions:
   - {fileID: 11400000, guid: cf3fe423b38c9ce469fb186fca92de7c, type: 2}
-  - {fileID: 11400000, guid: f46c9ff8c7413c24a8ce6726039b56f5, type: 2}
-  - {fileID: 11400000, guid: 1d452e0d175386447ad63f9bade03b71, type: 2}
-  - {fileID: 11400000, guid: a9a7b2580008f0240978524a66781f3d, type: 2}
+  - {fileID: 11400000, guid: d7e7641ea40431542b6e7a1949ec6ca5, type: 2}
+  - {fileID: 11400000, guid: 406f4221f962e804f991a321c6655297, type: 2}
+  - {fileID: 11400000, guid: d4e2e89c68e41bc41bde3f7a09d0f416, type: 2}
   - {fileID: 11400000, guid: 2bbdd61650dde5845a30d033b364edd8, type: 2}

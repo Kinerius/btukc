@@ -19,7 +19,7 @@ namespace SkillActions.Actions
 
             await UniTask.WaitUntil(() =>
             {
-                data.view.SetDestination(data.targetPosition);
+                data.view.MoveTowards(data.targetPosition);
 
                 return IsAtDistance(data);
             });

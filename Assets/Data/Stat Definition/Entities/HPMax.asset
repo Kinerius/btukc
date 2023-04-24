@@ -17,4 +17,4 @@ MonoBehaviour:
   max: {fileID: 0}
   additive: {fileID: 0}
   multiplier: {fileID: 0}
-  description: Max Hull Points
+  description: Max Health Points

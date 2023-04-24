@@ -17,4 +17,4 @@ MonoBehaviour:
   max: {fileID: 11400000, guid: 523bb84203d0dce4c89f764f704e0097, type: 2}
   additive: {fileID: 0}
   multiplier: {fileID: 11400000, guid: 659f60f9a0a7984469981798f2f5af16, type: 2}
-  description: Hull Points
+  description: Health Points

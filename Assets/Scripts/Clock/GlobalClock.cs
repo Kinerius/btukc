@@ -2,7 +2,6 @@
 
 public class GlobalClock : MonoBehaviour
 {
-    private GlobalClock instance;
     private float _time;
     public bool Enabled = true;
     public float time => _time;
@@ -19,7 +18,7 @@ public class GlobalClock : MonoBehaviour
             return 0;
         }
     }
-    
+
     public float fixedDeltaTime
     {
         get

@@ -1,4 +1,5 @@
 ﻿using Entities;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,6 +9,7 @@ namespace Agent
     public class NavMeshAgentEntityView : EntityView
     {
         [HideInInspector] [SerializeField] private NavMeshAgent agent;
+        private bool isMovementEnabled;
 
         private void OnValidate()
         {
@@ -16,7 +18,7 @@ namespace Agent
 
         public override void OnAwake()
         {
-            
+
         }
 
         public override void StopMoving()
@@ -37,9 +39,17 @@ namespace Agent
             agent.Warp(finalPosition);
         }
 
-        public override void SetDestination(Vector3 position)
+        public override void MoveTowards(Vector3 position)
         {
             agent.destination = position;
+        }
+
+        public override void ToggleMovement(bool enabled)
+        {
+            isMovementEnabled = enabled;
+            agent.isStopped = !enabled;
+            agent.angularSpeed = enabled ? 360 : 0;
+            agent.acceleration = enabled ? 8 : 1000;
         }
     }
 }

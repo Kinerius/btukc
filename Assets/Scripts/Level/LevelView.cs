@@ -10,10 +10,16 @@ public class LevelView : MonoBehaviour
     [SerializeField] private GlobalClock globalClock;
     public LevelManager LevelManager { get; private set; }
 
-    void Start()
+    private void Start()
     {
         LevelManager = new LevelManager(globalClock);
         camera.Setup(player.transform);
+        var entities = FindObjectsOfType<Entity>();
+
+        foreach (var entity in entities)
+        {
+            entity.Setup(this);
+        }
     }
 
 }

@@ -18,8 +18,8 @@ MonoBehaviour:
   - stat: {fileID: 11400000, guid: 523bb84203d0dce4c89f764f704e0097, type: 2}
     initialValue: 35
   - stat: {fileID: 11400000, guid: de7f649da5809244e8f30de2d19ae52b, type: 2}
-    initialValue: 10
+    initialValue: 3
   - stat: {fileID: 11400000, guid: a9dde6624db7c23418d5df7fcb7fb1f0, type: 2}
-    initialValue: 175
+    initialValue: 360
   - stat: {fileID: 11400000, guid: 279447a4572aa6b4690ad79661439fe9, type: 2}
     initialValue: 25
