@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Game.Level;
 using Stats;
+using System.Threading;
 using UnityEngine;
 
 namespace SkillActions.Actions
@@ -13,46 +14,41 @@ namespace SkillActions.Actions
         [SerializeField] private AnimationEventData[] events;
         [SerializeField] private bool waitForAnimationToEnd;
 
-        public override async UniTask StartAction(SkillActionTriggerData data, LevelManager environment, StatRepository skillStats)
+        // TODO: Evaluate replacing this whole system with a timeline
+        public override async UniTask StartAction(SkillActionTriggerData data, LevelManager environment, StatRepository skillStats, CancellationToken cancellationToken)
         {
             var animation = data.view.GetAnimationController();
 
             void EventHandler(string eventName)
             {
-                OnAnimationEvent(eventName, data, environment, skillStats);
+                OnAnimationEvent(eventName, data, environment, skillStats, cancellationToken);
             }
-
-            Debug.Log($"Starting animation {animationName}");
 
             animation.OnAnimationEvent += EventHandler;
             animation.Play(animationName);
 
-            // TODO: Evaluate replacing this whole system with a timeline
-
-            var state = animation.GetAnimationState(animationName);
-            if (waitForAnimationToEnd)
+            try
             {
-                await UniTask.WaitUntil(() => state.time != 0);
-
-                await UniTask.WaitUntil(() => state.time == 0);
-                Debug.Log("is zero");
-            }
-            Debug.Log("Animation Ended!");
-            animation.OnAnimationEvent -= EventHandler;
-        }
-
-        private void OnAnimationEvent(string eventName, SkillActionTriggerData data, LevelManager environment, StatRepository skillStats)
-        {
-            Debug.Log($"animation event {eventName}");
-            for (int i = 0; i < events.Length; i++)
-            {
-                var evt = events[i];
-
-                if (evt.eventName == eventName)
+                var state = animation.GetAnimationState(animationName);
+                if (waitForAnimationToEnd)
                 {
-                    evt.action.StartAction(data, environment, skillStats);
+                    await UniTask.WaitUntil(() => state.time != 0, cancellationToken: cancellationToken);
+                    await UniTask.WaitUntil(() => state.time == 0, cancellationToken: cancellationToken);
                 }
             }
+            catch (OperationCanceledException _) { }
+            catch (Exception e) { Debug.LogException(e); }
+            finally
+            {
+                animation.OnAnimationEvent -= EventHandler;
+            }
+        }
+
+        private async void OnAnimationEvent(string eventName, SkillActionTriggerData data, LevelManager environment, StatRepository skillStats, CancellationToken cancellationToken)
+        {
+            foreach (var evt in events)
+                if (evt.eventName == eventName)
+                    await evt.action.StartAction(data, environment, skillStats, cancellationToken);
         }
     }
 

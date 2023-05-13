@@ -8,9 +8,16 @@ namespace Game.Entities
     {
         Vector3 GetPosition();
         int GetLayer();
+
+        bool IsActionsEnabled();
         void StartAction(int indexAction);
         void StartAction(SkillAction action, IEntity target);
-        void ToggleActions(bool enabled);
+        void ToggleActions(bool enabled, string source);
         IEntityView GetView();
+        void ApplyTag(string effectTag);
+        bool HasTag(string effectTag);
+        void RemoveTag(string effectTag);
+
+        void InterruptActions();
     }
 }

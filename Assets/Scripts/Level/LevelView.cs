@@ -2,6 +2,7 @@ using Camera;
 using Game;
 using Game.Level;
 using Handlers;
+using SkillEffects;
 using System;
 using UI;
 using UnityEngine;
@@ -17,12 +18,14 @@ public class LevelView : MonoBehaviour
     public InputActionReference mousePosition;
     public InputActionReference createEnemy;
     public Entity entityPrefab;
+    private SkillEffectManager skillEffectManager;
 
     public LevelManager LevelManager { get; private set; }
 
     private void Start()
     {
-        LevelManager = new LevelManager(globalClock);
+        skillEffectManager = new SkillEffectManager(globalClock);
+        LevelManager = new LevelManager(globalClock, skillEffectManager);
         camera.Setup(player.transform);
 
         uiManager.Setup(LevelManager.poolManager, globalClock);
@@ -37,6 +40,7 @@ public class LevelView : MonoBehaviour
     private void OnDestroy()
     {
         createEnemy.action.started -= OnCreateEnemy;
+        skillEffectManager.Dispose();
     }
 
     private void OnCreateEnemy(InputAction.CallbackContext _)
@@ -92,6 +96,7 @@ public class LevelView : MonoBehaviour
     public void UnRegisterEntity(Entity entity)
     {
         // todo: I dont like this
+        skillEffectManager.DisposeAll(entity);
         EntityColliderRegistry.UnRegister(entity.GetComponent<Collider>());
         uiManager.UnRegisterEntity(entity);
     }

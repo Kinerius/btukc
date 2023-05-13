@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4a73262a6b140559f0cfbaee99c7da7, type: 3}
-  m_Name: DisableActions
+  m_Script: {fileID: 11500000, guid: d6a5d49564c04e9a9da5cb9c5ef9bc12, type: 3}
+  m_Name: Damage&KnockBack
   m_EditorClassIdentifier: 
-  enabled: 0
+  actions:
+  - {fileID: 11400000, guid: 1d50f4bd12c0f8a49a9cc574ca190fa8, type: 2}
+  - {fileID: 11400000, guid: 7522182b3142a2046b268233037cab06, type: 2}

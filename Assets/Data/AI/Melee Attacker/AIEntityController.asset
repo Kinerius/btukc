@@ -17,4 +17,4 @@ MonoBehaviour:
     priority: 0
   - behaviour: {fileID: 11400000, guid: eaf5f9d272523a94abf789942b8b943d, type: 2}
     priority: 1
-  log: 1
+  log: 0

@@ -5,6 +5,7 @@ using Entities.Animation;
 using Entities.Views;
 using Game;
 using JetBrains.Annotations;
+using System;
 using UnityEngine;
 
 namespace Entities
@@ -43,10 +44,9 @@ namespace Entities
         public abstract void OnAwake();
         public abstract void StopMoving();
         public abstract void LookAtInstant(Vector3 targetPosition);
-
         public abstract void Teleport(Vector3 targetPosition);
         public abstract void MoveTowards(Vector3 position);
-
+        public abstract void ForceMoveTowards(Vector3 position);
         public abstract void ToggleMovement(bool enabled);
     }
 }

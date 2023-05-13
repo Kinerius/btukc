@@ -3,6 +3,7 @@ using Game.Level;
 using SkillActions.Views;
 using Stats;
 using System;
+using System.Threading;
 using UnityEngine;
 
 namespace SkillActions.Actions
@@ -17,12 +18,12 @@ namespace SkillActions.Actions
         [SerializeField] private ScriptableAction onHit;
 
         public override UniTask StartAction(SkillActionTriggerData data,
-            LevelManager levelManager, StatRepository skillStats)
+            LevelManager levelManager, StatRepository skillStats, CancellationToken cancellationToken)
         {
             Transform anchorTransform = data.view.GetAnchor(anchorTag);
             var anchorTransformPosition = anchorTransform.position;
 
-            var instance = levelManager.poolManager.GetInactiveObject(prefabGameObject).GetComponent<Projectile>();
+            var instance = levelManager.poolManager.GetInactiveObject(prefabGameObject);
             instance.transform.position = anchorTransformPosition;
 
             var dataTargetPosition = data.targetPosition;
@@ -33,12 +34,12 @@ namespace SkillActions.Actions
 
             var projectileSpeed = skillStats.GetOrAddStat("ProjectileSpeed");
 
-            void OnCollisionEvent(CollisionEvent evt)
+            async void OnCollisionEvent(CollisionEvent evt)
             {
                 if (evt.entity == null) return;
                 var modifiedData = data;
                 modifiedData.targetEntity = evt.entity;
-                onHit.StartAction(modifiedData, levelManager, skillStats);
+                await onHit.StartAction(modifiedData, levelManager, skillStats, cancellationToken);
             }
 
             instance.Setup(anchorTransformPosition, projectileSpeed.Value, targetDirection, data.owner.GetLayer(), levelManager.globalClock, OnCollisionEvent);

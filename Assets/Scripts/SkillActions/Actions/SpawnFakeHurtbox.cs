@@ -3,6 +3,7 @@ using Game.Level;
 using SkillActions.Views;
 using Stats;
 using System;
+using System.Threading;
 using UnityEngine;
 
 namespace SkillActions.Actions
@@ -17,7 +18,7 @@ namespace SkillActions.Actions
         [SerializeField] private float durationInSeconds;
         [SerializeField] private HurtBox hurtBoxPrefab;
 
-        public override async UniTask StartAction(SkillActionTriggerData data, LevelManager levelManager, StatRepository skillStats)
+        public override async UniTask StartAction(SkillActionTriggerData data, LevelManager levelManager, StatRepository skillStats, CancellationToken cancellationToken)
         {
             Transform anchorTransform = data.view.GetAnchor(anchorTag);
             var instance = levelManager.poolManager.GetInactiveObject(hurtBoxPrefab).GetComponent<HurtBox>();
@@ -32,11 +33,16 @@ namespace SkillActions.Actions
 
             instance.gameObject.SetActive(true);
 
-            await UniTask.Delay(TimeSpan.FromSeconds(durationInSeconds));
-
-            instance.ReturnToPool();
-
-            await UniTask.CompletedTask;
+            try
+            {
+                await UniTask.Delay(TimeSpan.FromSeconds(durationInSeconds), cancellationToken: cancellationToken);
+            }
+            catch (OperationCanceledException _) { }
+            catch (Exception e) { Debug.LogException(e); }
+            finally
+            {
+                instance.ReturnToPool();
+            }
         }
     }
 }

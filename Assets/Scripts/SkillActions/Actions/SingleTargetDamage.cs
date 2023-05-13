@@ -2,6 +2,7 @@
 using Entities.Events;
 using Game.Level;
 using Stats;
+using System.Threading;
 using UnityEngine;
 
 namespace SkillActions.Actions
@@ -10,7 +11,7 @@ namespace SkillActions.Actions
     public class SingleTargetDamage : ScriptableAction
     {
         public override UniTask StartAction(SkillActionTriggerData data, LevelManager levelManager,
-            StatRepository skillStats)
+            StatRepository skillStats, CancellationToken cancellationToken)
         {
             if (data.targetEntity != null)
             {

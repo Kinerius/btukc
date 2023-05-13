@@ -1,7 +1,10 @@
-﻿using Entities;
+﻿using Cysharp.Threading.Tasks;
+using Entities;
 using System.Collections.Generic;
 using Game.Entities;
 using Game.Level;
+using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace SkillActions
@@ -12,6 +15,7 @@ namespace SkillActions
         private readonly IEntity owner;
         private readonly List<SkillAction> skills = new ();
         private Queue<SkillActionTriggerData> dataPool = new ();
+        private SkillAction currentSkillAction;
 
         public SkillService(LevelManager levelManager)
         {
@@ -40,32 +44,47 @@ namespace SkillActions
             skills.Remove(skillAction);
         }
 
-        public void StartSkillAction(int i, RaycastHit hit, IEntity owner, EntityView view)
+        public async UniTask StartSkillAction(int i, RaycastHit hit, IEntity owner, EntityView view)
         {
             if (skills.Count <= 0 || i >= skills.Count) return;
+            if (currentSkillAction != null) return;
             var skillAction = skills[i];
             var dataTargetPosition = hit.point;
-
-            StartSkillAction(skillAction, owner, view, dataTargetPosition);
+            await StartSkillAction(skillAction, owner, view, dataTargetPosition);
         }
 
-        public void StartSkillAction(SkillAction skillAction, IEntity owner, EntityView view, Vector3 dataTargetPosition)
+        public async UniTask StartSkillAction(SkillAction skillAction, IEntity owner, EntityView view, Vector3 dataTargetPosition)
         {
+            if (currentSkillAction != null) return;
             var data = GetTriggerData();
             data.owner = owner;
             data.view = view;
             data.targetPosition = dataTargetPosition;
-            skillAction.StartSkillAction(data, levelManager);
+            await InternalStartSkillaction(skillAction, data);
         }
 
-        public void StartSkillAction(SkillAction skillAction, IEntity owner, EntityView view, IEntity target)
+        public async UniTask StartSkillAction(SkillAction skillAction, IEntity owner, EntityView view, IEntity target)
         {
+            if (currentSkillAction != null) return;
             var data = GetTriggerData();
             data.owner = owner;
             data.view = view;
             data.targetPosition = target.GetPosition();
             data.targetEntity = target;
-            skillAction.StartSkillAction(data, levelManager);
+            await InternalStartSkillaction(skillAction, data);
+        }
+
+        private async Task InternalStartSkillaction(SkillAction skillAction, SkillActionTriggerData data)
+        {
+            currentSkillAction = skillAction;
+            await skillAction.StartSkillAction(data, levelManager);
+            currentSkillAction = null;
+        }
+
+        public void InterruptActions()
+        {
+            currentSkillAction?.Interrupt();
+            currentSkillAction = null;
         }
     }
 }

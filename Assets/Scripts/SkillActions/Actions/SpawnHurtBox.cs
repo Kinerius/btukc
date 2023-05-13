@@ -3,6 +3,7 @@ using Game.Level;
 using SkillActions.Views;
 using Stats;
 using System;
+using System.Threading;
 using UnityEngine;
 
 namespace SkillActions.Actions
@@ -19,7 +20,7 @@ namespace SkillActions.Actions
         [SerializeField] private ScriptableAction onCollisionEvent;
         [SerializeField] private HurtBox hurtBoxPrefab;
 
-        public override async UniTask StartAction(SkillActionTriggerData data, LevelManager levelManager, StatRepository skillStats)
+        public override async UniTask StartAction(SkillActionTriggerData data, LevelManager levelManager, StatRepository skillStats, CancellationToken cancellationToken)
         {
             Transform anchorTransform = data.view.GetAnchor(anchorTag);
             var instance = levelManager.poolManager.GetInactiveObject(hurtBoxPrefab).GetComponent<HurtBox>();
@@ -28,25 +29,30 @@ namespace SkillActions.Actions
             var offsetY = anchorTransform.up * boxRelativePosition.y;
             var offsetZ = anchorTransform.forward * boxRelativePosition.z;
             Vector3 initialPosition = anchorTransform.position + offsetX + offsetY + offsetZ;
-            Debug.DrawLine(initialPosition, initialPosition + (Vector3.up * 999), Color.red, 0.5f);
 
             async void OnCollisionEvent(CollisionEvent evt)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 if (evt.entity == null) return;
                 var modifiedData = data;
                 modifiedData.targetEntity = evt.entity;
-                await onCollisionEvent.StartAction(modifiedData, levelManager, skillStats);
+                await onCollisionEvent.StartAction(modifiedData, levelManager, skillStats, cancellationToken);
             }
 
             instance.Setup(initialPosition, anchorTransform.forward, boxSize, data.owner.GetLayer(), OnCollisionEvent );
             instance.ToggleDebugView(showDebugBox);
             instance.gameObject.SetActive(true);
 
-            await UniTask.Delay(TimeSpan.FromSeconds(durationInSeconds));
-
-            instance.ReturnToPool();
-
-            await UniTask.CompletedTask;
+            try
+            {
+                await UniTask.Delay(TimeSpan.FromSeconds(durationInSeconds), cancellationToken: cancellationToken);
+            }
+            catch (OperationCanceledException _) { }
+            catch (Exception e) { Debug.LogException(e); }
+            finally
+            {
+                instance.ReturnToPool();
+            }
         }
     }
 }

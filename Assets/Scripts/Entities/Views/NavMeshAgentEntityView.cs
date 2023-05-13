@@ -60,6 +60,20 @@ namespace Agent
             agent.destination = position;
         }
 
+        public override void ForceMoveTowards(Vector3 position)
+        {
+            Debug.DrawLine(position, position + Vector3.up * 999, Color.red, 5);
+            if (NavMesh.SamplePosition(position, out var sampleHit, 1, NavMesh.AllAreas))
+            {
+                bool obstacle = agent.Raycast(sampleHit.position, out NavMeshHit hit);
+                if (!obstacle)
+                    agent.Warp(hit.position);
+            } else
+            {
+                Debug.LogError("Sample failed at " + position);
+            }
+        }
+
         public override void ToggleMovement(bool enabled)
         {
             isMovementEnabled = enabled;

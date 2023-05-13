@@ -48,6 +48,8 @@ namespace DefaultNamespace
 
         public override void Update()
         {
+            if (!entity.IsActionsEnabled()) return;
+
             if (behaviourRecheck.IsUsable())
             {
                 behaviourRecheck.Use();
@@ -55,6 +57,15 @@ namespace DefaultNamespace
             }
 
             if (currentBehaviour != null) { currentBehaviour.Update(); }
+        }
+
+        public override void InterruptActions()
+        {
+            if (log)
+                Debug.Log($"[AIView] Interrupted", this);
+
+            currentBehaviour?.Disable();
+            currentBehaviour = null;
         }
 
         private void UpdatePriority()

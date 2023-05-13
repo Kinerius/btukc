@@ -8,5 +8,7 @@ namespace Game
     {
         public abstract void Initialize(IEntity entity, LevelManager levelManager);
         public abstract void Update();
+
+        public abstract void InterruptActions();
     }
 }

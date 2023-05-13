@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Game.Level;
 using Stats;
+using System.Threading;
 using UnityEngine;
 
 namespace SkillActions.Actions
@@ -10,7 +11,7 @@ namespace SkillActions.Actions
     public class LookAtTargetAndStop : ScriptableAction
     {
         public override UniTask StartAction(SkillActionTriggerData data,
-            LevelManager levelManager, StatRepository skillStats)
+            LevelManager levelManager, StatRepository skillStats, CancellationToken cancellationToken)
         {
             data.view.StopMoving();
             data.view.LookAtInstant(data.targetPosition);

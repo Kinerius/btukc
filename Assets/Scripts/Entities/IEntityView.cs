@@ -12,9 +12,10 @@ namespace Entities
 
         void LookAtInstant(Vector3 targetPosition);
 
-        void Teleport(Vector3 targetPosition);
+        void ForceMoveTowards(Vector3 targetPosition);
 
-        void MoveTowards(Vector3 position);
+        void MoveTowards(Vector3 targetPosition);
+        void Teleport(Vector3 targetPosition);
 
         void ToggleMovement(bool enabled);
     }

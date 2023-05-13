@@ -1,9 +1,11 @@
+using Cysharp.Threading.Tasks;
 using Entities;
 using Entities.Events;
 using Game.Entities;
 using SkillActions;
 using Stats;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using EventHandler = Entities.EventHandler;
@@ -17,6 +19,8 @@ namespace Game
         [SerializeField] private EntityController entityController;
         [FormerlySerializedAs("viewTransform")] [SerializeField] private EntityView view;
 
+        private readonly HashSet<string> listOfBlockers = new ();
+        private readonly HashSet<string> tags = new ();
         private IStatService statService;
         private EventHandler eventHandler;
         private SkillService skillService;
@@ -26,30 +30,41 @@ namespace Game
 
         public IStatService Stats => statService;
         public EventHandler EventHandler => eventHandler;
-        public IEntityView GetView() => view;
 
-        public int GetLayer() => gameObject.layer;
+        public IEntityView GetView() =>
+            view;
+
+        public int GetLayer() =>
+            gameObject.layer;
+
+        public bool IsActionsEnabled() =>
+            isActionEnabled;
 
         public void StartAction(int indexAction)
         {
             if (!isActionEnabled) return;
 
             skillService.StartSkillAction(indexAction, new RaycastHit
-                { point = transform.position + (view.transform.forward * 2) }, this, view);
+                { point = transform.position + (view.transform.forward * 2) }, this, view).Forget();
         }
 
         public void StartAction(SkillAction action, IEntity target)
         {
             if (!isActionEnabled) return;
 
-            skillService.StartSkillAction(action, this, view, target);
+            skillService.StartSkillAction(action, this, view, target).Forget();
         }
 
-        public void ToggleActions(bool enabled)
+        public void ToggleActions(bool enabled, string source)
         {
-            isActionEnabled = enabled;
+            // we make sure multiple sources of action togglers exist
+            if (enabled)
+                listOfBlockers.Remove(source);
+            else
+                listOfBlockers.Add(source);
 
-            view.ToggleMovement(enabled);
+            isActionEnabled = listOfBlockers.Count == 0;
+            view.ToggleMovement(isActionEnabled);
         }
 
         public void Setup(LevelView levelView)
@@ -98,7 +113,7 @@ namespace Game
             if (GetLayer() == payload.Entity.GetLayer()) return;
 
             health.Value -= payload.PreComputedDamage;
-            Debug.Log($"{name} hp: {health.Value} (-{payload.PreComputedDamage})");
+            //Debug.Log($"{name} hp: {health.Value} (-{payload.PreComputedDamage})");
         }
 
         private void OnHealthChanged(float statValue)
@@ -112,6 +127,25 @@ namespace Game
             levelView.UnRegisterEntity(this);
 
             Destroy(gameObject);
+        }
+
+        public void ApplyTag(string effectTag)
+        {
+            tags.Add(effectTag);
+        }
+
+        public bool HasTag(string effectTag) =>
+            tags.Contains(effectTag);
+
+        public void RemoveTag(string effectTag)
+        {
+            tags.Remove(effectTag);
+        }
+
+        public void InterruptActions()
+        {
+            entityController.InterruptActions();
+            skillService.InterruptActions();
         }
     }
 }

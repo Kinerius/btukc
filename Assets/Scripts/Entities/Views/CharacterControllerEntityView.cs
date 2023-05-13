@@ -43,6 +43,11 @@ namespace Character
             characterController.Move(finalDirection);
         }
 
+        public override void ForceMoveTowards(Vector3 position)
+        {
+            characterController.Move(position - transform.position);
+        }
+
         public override void ToggleMovement(bool enabled)
         {
             isActionEnabled = enabled;

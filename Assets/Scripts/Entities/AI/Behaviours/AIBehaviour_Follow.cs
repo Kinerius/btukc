@@ -52,6 +52,7 @@ namespace AI.Behaviours
         {
             forcedPosition = null;
             targetEntity = playerNearbyEvent.PlayerEntity;
+            Debug.Log(targetEntity);
         }
 
         public override void Update()
@@ -86,6 +87,8 @@ namespace AI.Behaviours
             {
                 agent.MoveTowards(forcedPosition.Value);
                 if (Vector3.Distance(forcedPosition.Value, thisEntity.GetPosition()) < 1) forcedPosition = null;
+
+                return;
             }
         }
 

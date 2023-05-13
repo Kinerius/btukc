@@ -17,6 +17,6 @@ MonoBehaviour:
   boxRelativePosition: {x: 0, y: 0, z: 1.5}
   anchorTag: BulletSpawn
   durationInSeconds: 0.35
-  onCollisionEvent: {fileID: 11400000, guid: 7522182b3142a2046b268233037cab06, type: 2}
+  onCollisionEvent: {fileID: 11400000, guid: 59a01a2a784482f4cbcc2c2ba2186b81, type: 2}
   hurtBoxPrefab: {fileID: 8360938786766334285, guid: 40fb4b0afc58a6c4baac84a3e1d2f6cd,
     type: 3}

@@ -50,5 +50,10 @@ namespace Game
 
             entity.GetView().MoveTowards(movementDirection);
         }
+
+        public override void InterruptActions()
+        {
+
+        }
     }
 }
