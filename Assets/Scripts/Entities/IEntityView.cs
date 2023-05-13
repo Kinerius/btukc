@@ -10,7 +10,7 @@ namespace Entities
 
         void StopMoving();
 
-        void LookAt(Vector3 targetPosition);
+        void LookAtInstant(Vector3 targetPosition);
 
         void Teleport(Vector3 targetPosition);
 

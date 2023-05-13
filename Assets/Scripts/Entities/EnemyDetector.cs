@@ -20,7 +20,7 @@ namespace Entities
 
         public void OnTriggerEnter(Collider other)
         {
-            EntityHandler.TrySendEvent(other, cachedEvent);
+            EntityColliderRegistry.TrySendEvent(other, cachedEvent);
         }
     }
 }

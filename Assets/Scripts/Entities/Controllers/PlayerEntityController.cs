@@ -1,5 +1,6 @@
 ﻿using Game.Entities;
 using Game.Level;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,6 +24,12 @@ namespace Game
 
             action1.action.performed += OnAction1;
             action2.action.performed += OnAction2;
+        }
+
+        private void OnDestroy()
+        {
+            action1.action.performed -= OnAction1;
+            action2.action.performed -= OnAction2;
         }
 
         private void OnAction1(InputAction.CallbackContext obj)

@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3020685937895362812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5455159236502518090}
+  - component: {fileID: 4348667967946760363}
+  m_Layer: 7
+  m_Name: HealthBar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5455159236502518090
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3020685937895362812}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8912933170227066397}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4348667967946760363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3020685937895362812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffa6c3182ea849a480b74f4b7e2d2866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anchorName: HealthBar
 --- !u!1 &5948504302665045743
 GameObject:
   m_ObjectHideFlags: 0
@@ -80,7 +125,7 @@ Transform:
   m_Children:
   - {fileID: 8912933170227066397}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &2273855936691268256
 CharacterController:
@@ -125,7 +170,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2619b2c886631e243b9664b200fbfa29, type: 2}
   - {fileID: 11400000, guid: 7777987bc72ab0b40b67902f7ef38442, type: 2}
   entityController: {fileID: 11400000, guid: 4e6a082be16ee9145a129c6d8c37f8eb, type: 2}
-  viewTransform: {fileID: 966348222511312607}
+  view: {fileID: 966348222511312607}
 --- !u!114 &966348222511312607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +270,7 @@ Transform:
   m_Children:
   - {fileID: 1361500394173779053}
   - {fileID: 2345764788029914485}
+  - {fileID: 5455159236502518090}
   m_Father: {fileID: 9171183955228717120}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

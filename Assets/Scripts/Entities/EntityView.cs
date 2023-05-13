@@ -42,7 +42,7 @@ namespace Entities
 
         public abstract void OnAwake();
         public abstract void StopMoving();
-        public abstract void LookAt(Vector3 targetPosition);
+        public abstract void LookAtInstant(Vector3 targetPosition);
 
         public abstract void Teleport(Vector3 targetPosition);
         public abstract void MoveTowards(Vector3 position);

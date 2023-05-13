@@ -49,7 +49,7 @@ namespace AI.Behaviours
 
             if (Vector3.Distance(thisEntity.GetPosition(), nearbyPlayer.GetPosition()) < distance)
             {
-                agent.LookAt(nearbyPlayer.GetPosition());
+                agent.LookAtInstant(nearbyPlayer.GetPosition());
 
                 thisEntity.StartAction(skillAction, nearbyPlayer);
 

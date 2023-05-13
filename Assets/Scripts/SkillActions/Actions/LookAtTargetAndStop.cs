@@ -13,7 +13,7 @@ namespace SkillActions.Actions
             LevelManager levelManager, StatRepository skillStats)
         {
             data.view.StopMoving();
-            data.view.LookAt(data.targetPosition);
+            data.view.LookAtInstant(data.targetPosition);
             return UniTask.CompletedTask;
         }
     }

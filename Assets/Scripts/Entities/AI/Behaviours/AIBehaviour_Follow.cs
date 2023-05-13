@@ -47,6 +47,7 @@ namespace AI.Behaviours
             forcedPosition = forceGoTo.WorldPosition;
         }
 
+        // TODO: we have to unregister the player on death
         private void OnPlayerNearby(PlayerNearbyEvent playerNearbyEvent)
         {
             forcedPosition = null;
@@ -88,10 +89,8 @@ namespace AI.Behaviours
             }
         }
 
-        public override bool IsActive()
-        {
-            return true;
-        }
+        public override bool IsActive() =>
+            true;
 
         private void SwitchCircleAroundDirection()
         {

@@ -13,12 +13,12 @@ public class PoolManager : IPoolManager
         {
             transform =
             {
-                position = Vector3.one * 9999
-            }
+                position = Vector3.one * 9999,
+            },
         };
     }
 
-    public PooledObject GetInactiveObject(PooledObject reference)
+    public T GetInactiveObject<T>(T reference) where T : PooledObject
     {
         if (reference == null)
         {
@@ -36,7 +36,7 @@ public class PoolManager : IPoolManager
         var pool = pools[reference];
         var obj = pool.GetInactiveObject();
         obj.OnSpawn();
-        return obj;
+        return obj.GetComponent<T>();
     }
 
     private PooledObject CreateInstance(PooledObject reference, Transform poolRootTransform)
@@ -45,11 +45,9 @@ public class PoolManager : IPoolManager
         obj.gameObject.SetActive(false);
         return obj;
     }
-
-
 }
 
 public interface IPoolManager
 {
-    PooledObject GetInactiveObject(PooledObject reference);
+    T GetInactiveObject<T>(T reference) where T: PooledObject;
 }

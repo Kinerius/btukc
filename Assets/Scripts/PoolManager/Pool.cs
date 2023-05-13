@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pool
 {
-    private Queue<PooledObject> poolQueue = new Queue<PooledObject>();
+    private Queue<PooledObject> poolQueue = new ();
     private Func<PooledObject> constructor;
     private Transform root;
 

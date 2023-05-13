@@ -1,10 +1,9 @@
-using Agent;
 using Entities;
 using Entities.Events;
 using Game.Entities;
-using Handlers;
 using SkillActions;
 using Stats;
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 using EventHandler = Entities.EventHandler;
@@ -19,15 +18,14 @@ namespace Game
         [FormerlySerializedAs("viewTransform")] [SerializeField] private EntityView view;
 
         private IStatService statService;
-
         private EventHandler eventHandler;
         private SkillService skillService;
         private bool isActionEnabled;
         private IReactiveStat<float> health;
+        private LevelView levelView;
 
         public IStatService Stats => statService;
         public EventHandler EventHandler => eventHandler;
-
         public IEntityView GetView() => view;
 
         public int GetLayer() => gameObject.layer;
@@ -62,7 +60,8 @@ namespace Game
             eventHandler = new EventHandler();
 
             // TODO: Remove this ugly dependency
-            var levelManager = levelView.LevelManager;
+            this.levelView = levelView;
+            var levelManager = this.levelView.LevelManager;
             skillService = new SkillService(levelManager);
 
             foreach (SkillActionData skillActionData in skills)
@@ -70,10 +69,10 @@ namespace Game
 
             // multiple entities might have the same controller so we split the reference
             entityController = Instantiate(entityController);
-            entityController.Initialize(this, levelView.LevelManager);
+            entityController.Initialize(this, this.levelView.LevelManager);
             health.OnChanged += OnHealthChanged;
 
-            EntityHandler.Register(this, GetComponent<Collider>());
+            this.levelView.RegisterEntity(this);
         }
 
         private void SetupStats()
@@ -94,6 +93,7 @@ namespace Game
 
         public void ReceiveDamage(DamageEvent payload)
         {
+            // TODO: Change this into a faction flag
             // anything that is an entity can receive damage, we use layers to decide if they are friend or foe
             if (GetLayer() == payload.Entity.GetLayer()) return;
 
@@ -109,6 +109,8 @@ namespace Game
 
         private void OnDeath()
         {
+            levelView.UnRegisterEntity(this);
+
             Destroy(gameObject);
         }
     }

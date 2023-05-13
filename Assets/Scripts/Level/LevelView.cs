@@ -1,6 +1,9 @@
 using Camera;
 using Game;
 using Game.Level;
+using Handlers;
+using System;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +12,7 @@ public class LevelView : MonoBehaviour
     [SerializeField] private CameraView camera;
     [SerializeField] private Entity player;
     [SerializeField] private GlobalClock globalClock;
+    [SerializeField] private UIManager uiManager;
 
     public InputActionReference mousePosition;
     public InputActionReference createEnemy;
@@ -20,25 +24,36 @@ public class LevelView : MonoBehaviour
     {
         LevelManager = new LevelManager(globalClock);
         camera.Setup(player.transform);
-        var entities = FindObjectsOfType<Entity>();
 
-        foreach (var entity in entities)
-        {
-            entity.Setup(this);
-        }
+        uiManager.Setup(LevelManager.poolManager, globalClock);
+        SetupEntitiesInScene();
 
         createEnemy.action.Enable();
         mousePosition.action.Enable();
 
-        createEnemy.action.started += _ =>
+        createEnemy.action.started += OnCreateEnemy;
+    }
+
+    private void OnDestroy()
+    {
+        createEnemy.action.started -= OnCreateEnemy;
+    }
+
+    private void OnCreateEnemy(InputAction.CallbackContext _)
+    {
+        if (RaycastMousePosition(out var hit))
         {
-            if (RaycastMousePosition(out var hit))
-            {
-                var instance = Instantiate(entityPrefab);
-                instance.transform.position = hit.point;
-                instance.Setup(this);
-            }
-        };
+            var instance = Instantiate(entityPrefab);
+            instance.transform.position = hit.point;
+            instance.Setup(this);
+        }
+    }
+
+    private void SetupEntitiesInScene()
+    {
+        var entities = FindObjectsOfType<Entity>();
+        foreach (var entity in entities)
+            entity.Setup(this);
     }
 
     private bool RaycastMousePosition(out RaycastHit hit)
@@ -68,4 +83,16 @@ public class LevelView : MonoBehaviour
         });
     }
 
+    public void RegisterEntity(Entity entity)
+    {
+        EntityColliderRegistry.Register(entity, entity.GetComponent<Collider>());
+        uiManager.RegisterEntity(entity);
+    }
+
+    public void UnRegisterEntity(Entity entity)
+    {
+        // todo: I dont like this
+        EntityColliderRegistry.UnRegister(entity.GetComponent<Collider>());
+        uiManager.UnRegisterEntity(entity);
+    }
 }

@@ -46,7 +46,7 @@ namespace SkillActions.Views
             if (LayerUtils.AreNotEqual(collision.gameObject.layer, layerToIgnore)
                 && LayerUtils.AreNotEqual(collision.gameObject.layer, gameObject.layer))
             {
-                if (EntityHandler.TryGet(collision.collider, out var targetEntity))
+                if (EntityColliderRegistry.TryGet(collision.collider, out var targetEntity))
                 {
                     onCollisionEvent.Invoke(new CollisionEvent {entity = targetEntity, point = collision.contacts[0].point});
                 }

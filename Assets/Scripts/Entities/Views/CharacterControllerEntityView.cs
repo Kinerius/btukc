@@ -53,7 +53,7 @@ namespace Character
 
         public override void StopMoving() { }
 
-        public override void LookAt(Vector3 position)
+        public override void LookAtInstant(Vector3 position)
         {
             var transformPosition = transform.position;
             position.y = transformPosition.y;
