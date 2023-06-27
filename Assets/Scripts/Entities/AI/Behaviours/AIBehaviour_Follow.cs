@@ -52,7 +52,6 @@ namespace AI.Behaviours
         {
             forcedPosition = null;
             targetEntity = playerNearbyEvent.PlayerEntity;
-            Debug.Log(targetEntity);
         }
 
         public override void Update()

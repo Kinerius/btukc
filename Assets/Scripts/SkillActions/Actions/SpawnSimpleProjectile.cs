@@ -5,17 +5,17 @@ using Stats;
 using System;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SkillActions.Actions
 {
-    [CreateAssetMenu(menuName = "Skills/Actions/SpawnSimpleProjectile")]
     public class SpawnSimpleProjectile : ScriptableAction
     {
         [SerializeField] private Projectile prefabGameObject;
 
         [SerializeField] private string anchorTag;
 
-        [SerializeField] private ScriptableAction onHit;
+        [ActionsEditor][SerializeField] private CompositeScriptableAction onProjectileHit;
 
         public override UniTask StartAction(SkillActionTriggerData data,
             LevelManager levelManager, StatRepository skillStats, CancellationToken cancellationToken)
@@ -39,7 +39,7 @@ namespace SkillActions.Actions
                 if (evt.entity == null) return;
                 var modifiedData = data;
                 modifiedData.targetEntity = evt.entity;
-                await onHit.StartAction(modifiedData, levelManager, skillStats, cancellationToken);
+                await onProjectileHit.StartAction(modifiedData, levelManager, skillStats, cancellationToken);
             }
 
             instance.Setup(anchorTransformPosition, projectileSpeed.Value, targetDirection, data.owner.GetLayer(), levelManager.globalClock, OnCollisionEvent);

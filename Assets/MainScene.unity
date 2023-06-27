@@ -5608,6 +5608,12 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 7288983364058028069, guid: 0d94af2aa58513e4a9a6dc781b23d967,
+        type: 3}
+      propertyPath: skills.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 75291cf33a7063441b522635f668ccbb,
+        type: 2}
     - target: {fileID: 8311506285939547070, guid: 0d94af2aa58513e4a9a6dc781b23d967,
         type: 3}
       propertyPath: m_Mesh

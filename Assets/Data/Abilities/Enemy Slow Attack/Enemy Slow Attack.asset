@@ -1,5 +1,72 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4821561099983908528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a038a001a24cd98f62b2230dde4806, type: 3}
+  m_Name: SpawnHurtBox
+  m_EditorClassIdentifier: 
+  showDebugBox: 1
+  boxSize: {x: 2, y: 2, z: 2}
+  boxRelativePosition: {x: 0, y: 0, z: 1.5}
+  anchorTag: BulletSpawn
+  durationInSeconds: 0.2
+  onHurtboxHit: {fileID: 891204223244188770}
+  hurtBoxPrefab: {fileID: 8360938786766334285, guid: 40fb4b0afc58a6c4baac84a3e1d2f6cd,
+    type: 3}
+--- !u!114 &-4178287259280148918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3cf080b280b4141bdfa82440da8d219, type: 3}
+  m_Name: SpawnFakeHurtBox
+  m_EditorClassIdentifier: 
+  boxSize: {x: 2, y: 2, z: 2}
+  boxRelativePosition: {x: 0, y: 0, z: 1.5}
+  anchorTag: BulletSpawn
+  durationInSeconds: 0.5
+  hurtBoxPrefab: {fileID: 8360938786766334285, guid: daa034a15249e0f4a81e4475a0640751,
+    type: 3}
+--- !u!114 &-3765789231349550067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb615f973564207ad6a75d2f573332e, type: 3}
+  m_Name: Stats
+  m_EditorClassIdentifier: 
+  stats: []
+--- !u!114 &-2761028361905968156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a5d49564c04e9a9da5cb9c5ef9bc12, type: 3}
+  m_Name: CompositeScriptableAction_actions
+  m_EditorClassIdentifier: 
+  actions:
+  - {fileID: -4178287259280148918}
+  - {fileID: -4821561099983908528}
+  - {fileID: 5487177667211569215}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12,8 +79,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935f7a47985d401c86ed4702e8ab6ff1, type: 3}
   m_Name: Enemy Slow Attack
   m_EditorClassIdentifier: 
-  abilityStats: {fileID: 11400000, guid: 6fda317bdd3f7614faf0e43d45902626, type: 2}
+  abilityStats: {fileID: 4467083174020562603}
+  actions: {fileID: -2761028361905968156}
+--- !u!114 &891204223244188770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a5d49564c04e9a9da5cb9c5ef9bc12, type: 3}
+  m_Name: CompositeScriptableAction_onHurtboxHit
+  m_EditorClassIdentifier: 
   actions:
-  - {fileID: 11400000, guid: d7e7641ea40431542b6e7a1949ec6ca5, type: 2}
-  - {fileID: 11400000, guid: 406f4221f962e804f991a321c6655297, type: 2}
-  - {fileID: 11400000, guid: d4e2e89c68e41bc41bde3f7a09d0f416, type: 2}
+  - {fileID: 5477776211041267729}
+--- !u!114 &4467083174020562603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb615f973564207ad6a75d2f573332e, type: 3}
+  m_Name: Stats
+  m_EditorClassIdentifier: 
+  stats:
+  - stat: {fileID: 11400000, guid: efe233848ff85b840866ca1c4915e5db, type: 2}
+    initialValue: 5
+  - stat: {fileID: 11400000, guid: 7d1a23cd282b8af499f20a1d2018f82b, type: 2}
+    initialValue: 0.5
+--- !u!114 &5477776211041267729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a65d8bea5dc4d398dc42fe71815db59, type: 3}
+  m_Name: SingleTargetDamage
+  m_EditorClassIdentifier: 
+--- !u!114 &5487177667211569215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cc1ec097ddd45198b0c7069fe2905cd, type: 3}
+  m_Name: WaitTime
+  m_EditorClassIdentifier: 
+  timeInSeconds: 0.5

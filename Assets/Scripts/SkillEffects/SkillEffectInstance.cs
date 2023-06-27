@@ -22,7 +22,7 @@ namespace SkillEffects
             skillEffect.Remove();
 
         public bool Update(float deltaTime) =>
-            skillEffect.Update(deltaTime);
+            skillEffect.OnUpdate(deltaTime);
 
         public void Dispose()
         {

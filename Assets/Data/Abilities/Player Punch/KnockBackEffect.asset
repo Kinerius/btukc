@@ -9,6 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a65d8bea5dc4d398dc42fe71815db59, type: 3}
-  m_Name: Damage
+  m_Script: {fileID: 11500000, guid: 9b6cdd23d993471cac0b9185d3a127d6, type: 3}
+  m_Name: KnockBackEffect
   m_EditorClassIdentifier: 
+  knockBackTimeInSeconds: 0.5
+  knockBackDistance: 2

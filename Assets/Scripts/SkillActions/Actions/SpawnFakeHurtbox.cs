@@ -9,7 +9,6 @@ using UnityEngine;
 namespace SkillActions.Actions
 {
 
-    [CreateAssetMenu(menuName = "Skills/Actions/Spawn Fake Hurtbox")]
     public class SpawnFakeHurtBox : ScriptableAction
     {
         [SerializeField] private Vector3 boxSize;

@@ -167,8 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 66881a1a5ea8cd540869ae4ebd7a3361, type: 2}
   skills:
-  - {fileID: 11400000, guid: 2619b2c886631e243b9664b200fbfa29, type: 2}
-  - {fileID: 11400000, guid: 7777987bc72ab0b40b67902f7ef38442, type: 2}
+  - {fileID: 11400000, guid: f0a5c6a53d440ab41b01545fc878893d, type: 2}
   entityController: {fileID: 11400000, guid: 4e6a082be16ee9145a129c6d8c37f8eb, type: 2}
   view: {fileID: 966348222511312607}
 --- !u!114 &966348222511312607

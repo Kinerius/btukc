@@ -71,8 +71,9 @@ namespace UI.HealthBars
         private void CleanUp()
         {
             hp.OnChanged -= OnHealthChanged;
-            cancellationTokenSource.Cancel();
-            cancellationTokenSource.Dispose();
+            cancellationTokenSource?.Cancel();
+            cancellationTokenSource?.Dispose();
+            cancellationTokenSource = null;
         }
 
         private void OnHealthChanged(float newHealth)

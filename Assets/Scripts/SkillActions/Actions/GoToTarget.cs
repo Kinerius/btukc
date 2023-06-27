@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace SkillActions.Actions
 {
-    [CreateAssetMenu(menuName = "Skills/Actions/GoToTarget")]
 
     public class GoToTarget : ScriptableAction
     {

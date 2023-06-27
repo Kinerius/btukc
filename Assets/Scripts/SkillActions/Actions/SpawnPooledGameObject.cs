@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace SkillActions.Actions
 {
-    [CreateAssetMenu(menuName = "Skills/Actions/SpawnGameObject")]
     public class SpawnPooledGameObject : ScriptableAction
     {
         [SerializeField] private PooledObject prefabGameObject;

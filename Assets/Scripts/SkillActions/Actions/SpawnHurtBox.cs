@@ -9,7 +9,6 @@ using UnityEngine;
 namespace SkillActions.Actions
 {
 
-    [CreateAssetMenu(menuName = "Skills/Actions/Spawn Hurtbox")]
     public class SpawnHurtBox : ScriptableAction
     {
         [SerializeField] private bool showDebugBox;
@@ -17,7 +16,7 @@ namespace SkillActions.Actions
         [SerializeField] private Vector3 boxRelativePosition;
         [SerializeField] private string anchorTag;
         [SerializeField] private float durationInSeconds;
-        [SerializeField] private ScriptableAction onCollisionEvent;
+        [ActionsEditor][SerializeField] private CompositeScriptableAction onHurtboxHit;
         [SerializeField] private HurtBox hurtBoxPrefab;
 
         public override async UniTask StartAction(SkillActionTriggerData data, LevelManager levelManager, StatRepository skillStats, CancellationToken cancellationToken)
@@ -36,7 +35,7 @@ namespace SkillActions.Actions
                 if (evt.entity == null) return;
                 var modifiedData = data;
                 modifiedData.targetEntity = evt.entity;
-                await onCollisionEvent.StartAction(modifiedData, levelManager, skillStats, cancellationToken);
+                await onHurtboxHit.StartAction(modifiedData, levelManager, skillStats, cancellationToken);
             }
 
             instance.Setup(initialPosition, anchorTransform.forward, boxSize, data.owner.GetLayer(), OnCollisionEvent );

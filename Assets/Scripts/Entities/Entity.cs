@@ -6,6 +6,7 @@ using SkillActions;
 using Stats;
 using System;
 using System.Collections.Generic;
+using Tags;
 using UnityEngine;
 using UnityEngine.Serialization;
 using EventHandler = Entities.EventHandler;
@@ -20,16 +21,17 @@ namespace Game
         [FormerlySerializedAs("viewTransform")] [SerializeField] private EntityView view;
 
         private readonly HashSet<string> listOfBlockers = new ();
-        private readonly HashSet<string> tags = new ();
         private IStatService statService;
         private EventHandler eventHandler;
         private SkillService skillService;
         private bool isActionEnabled;
         private IReactiveStat<float> health;
         private LevelView levelView;
+        private TagService tags;
 
         public IStatService Stats => statService;
         public EventHandler EventHandler => eventHandler;
+        public TagService Tags => tags;
 
         public IEntityView GetView() =>
             view;
@@ -73,7 +75,7 @@ namespace Game
             statService = new StatService(stats.AsStatRepository());
             SetupStats();
             eventHandler = new EventHandler();
-
+            tags = new TagService();
             // TODO: Remove this ugly dependency
             this.levelView = levelView;
             var levelManager = this.levelView.LevelManager;
@@ -124,22 +126,10 @@ namespace Game
 
         private void OnDeath()
         {
+            InterruptActions();
             levelView.UnRegisterEntity(this);
 
             Destroy(gameObject);
-        }
-
-        public void ApplyTag(string effectTag)
-        {
-            tags.Add(effectTag);
-        }
-
-        public bool HasTag(string effectTag) =>
-            tags.Contains(effectTag);
-
-        public void RemoveTag(string effectTag)
-        {
-            tags.Remove(effectTag);
         }
 
         public void InterruptActions()
@@ -147,5 +137,6 @@ namespace Game
             entityController.InterruptActions();
             skillService.InterruptActions();
         }
+
     }
 }

@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2322443000400554750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a5d49564c04e9a9da5cb9c5ef9bc12, type: 3}
+  m_Name: CompositeScriptableAction_actions
+  m_EditorClassIdentifier: 
+  actions:
+  - {fileID: 898635937649168927}
+--- !u!114 &-1483897089719504100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb615f973564207ad6a75d2f573332e, type: 3}
+  m_Name: Stats
+  m_EditorClassIdentifier: 
+  stats:
+  - stat: {fileID: 11400000, guid: 7d1a23cd282b8af499f20a1d2018f82b, type: 2}
+    initialValue: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 935f7a47985d401c86ed4702e8ab6ff1, type: 3}
+  m_Name: Player Punch Combo
+  m_EditorClassIdentifier: 
+  abilityStats: {fileID: -1483897089719504100}
+  actions: {fileID: -2322443000400554750}
+--- !u!114 &898635937649168927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d7908beb1a74934995b33862f88e58c, type: 3}
+  m_Name: SkillCombo
+  m_EditorClassIdentifier: 
+  skills:
+  - {fileID: 11400000, guid: c17459c717f4ebe43932208f6adbb743, type: 2}
+  - {fileID: 11400000, guid: ce6e303d9b205354d948ea9f46586952, type: 2}
+  - {fileID: 11400000, guid: 2d6d5621ffb385f40ab71934e915e847, type: 2}
+--- !u!114 &1368733797272030894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb615f973564207ad6a75d2f573332e, type: 3}
+  m_Name: Stats
+  m_EditorClassIdentifier: 
+  stats: []

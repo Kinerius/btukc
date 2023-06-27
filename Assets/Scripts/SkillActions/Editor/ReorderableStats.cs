@@ -1,38 +1,25 @@
 ﻿using System;
-using System.Linq;
+using System.Collections;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
 namespace Stats.ScriptableObjects.Editor
 {
-    [CustomEditor(typeof(StatPackageData))]
-    public class StatPackageDataEditor : UnityEditor.Editor
+    public class ReorderableStats
     {
-        SerializedProperty stats;
-        ReorderableList list;
+        private readonly ReorderableList list;
+        private readonly SerializedObject serializedObject;
 
-        void OnEnable()
+        public ReorderableStats(SerializedObject serializedObject, SerializedProperty serializedProperty)
         {
-            stats = serializedObject.FindProperty("stats");
-            list = new ReorderableList(serializedObject, stats, true, true, true, true);
+            this.serializedObject = serializedObject;
 
-            list.drawElementCallback = DrawListItems;
-            list.drawHeaderCallback = DrawHeader;
-
-            list.onAddDropdownCallback = (rect, li) =>
-            {
-                var menu = new GenericMenu();
-
-                menu.AddItem(new GUIContent("Add Element"), false, () =>
+            list = new ReorderableList(this.serializedObject, serializedProperty, true, true, true, true)
                 {
-                    serializedObject.Update();
-                    li.serializedProperty.arraySize++;
-                    serializedObject.ApplyModifiedProperties();
-                });
-
-                menu.ShowAsContext();
-            };
+                    drawElementCallback = DrawListItems,
+                    drawHeaderCallback = DrawHeader,
+                };
 
         }
 
@@ -65,7 +52,7 @@ namespace Stats.ScriptableObjects.Editor
             EditorGUI.LabelField(rect, "Stats");
         }
 
-        public override void OnInspectorGUI()
+        public void OnInspectorGUI()
         {
             serializedObject.Update();
             list.DoLayoutList();

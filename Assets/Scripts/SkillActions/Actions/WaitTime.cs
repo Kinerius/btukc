@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace SkillActions.Actions
 {
-    [CreateAssetMenu(menuName = "Skills/Actions/Wait Time")]
     public class WaitTime : ScriptableAction
     {
         [SerializeField] private float timeInSeconds;

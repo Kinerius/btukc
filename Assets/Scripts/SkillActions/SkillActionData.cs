@@ -1,4 +1,6 @@
-﻿using Stats;
+﻿using SkillActions.Actions;
+using Stats;
+using System;
 using UnityEngine;
 
 namespace SkillActions
@@ -7,10 +9,7 @@ namespace SkillActions
     public class SkillActionData : ScriptableObject
     {
         [SerializeField] public StatPackageData abilityStats;
-        [SerializeField] public ScriptableAction[] actions;
-        public SkillAction AsSkillAction()
-        {
-            return new SkillAction(this);
-        }
+        [ActionsEditor] public CompositeScriptableAction actions;
+        public SkillAction AsSkillAction() => new (this);
     }
 }

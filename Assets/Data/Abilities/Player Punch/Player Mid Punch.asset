@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cc1ec097ddd45198b0c7069fe2905cd, type: 3}
   m_Name: WaitTime
   m_EditorClassIdentifier: 
-  timeInSeconds: 0.1
+  timeInSeconds: 0.2
 --- !u!114 &-2072708840127751541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats:
   - stat: {fileID: 11400000, guid: efe233848ff85b840866ca1c4915e5db, type: 2}
-    initialValue: 5
+    initialValue: 7
   - stat: {fileID: 11400000, guid: 7d1a23cd282b8af499f20a1d2018f82b, type: 2}
     initialValue: 0.5
 --- !u!114 &-1875558193216244417
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 935f7a47985d401c86ed4702e8ab6ff1, type: 3}
-  m_Name: Player Punch
+  m_Name: Player Mid Punch
   m_EditorClassIdentifier: 
   abilityStats: {fileID: -2072708840127751541}
   actions: {fileID: -1875558193216244417}
@@ -113,8 +113,8 @@ MonoBehaviour:
   m_Name: SpawnHurtBox
   m_EditorClassIdentifier: 
   showDebugBox: 0
-  boxSize: {x: 2, y: 2, z: 2}
-  boxRelativePosition: {x: 0, y: 0, z: 1.5}
+  boxSize: {x: 2.5, y: 2, z: 3}
+  boxRelativePosition: {x: 0, y: 0, z: 2}
   anchorTag: BulletSpawn
   durationInSeconds: 0.35
   onHurtboxHit: {fileID: 6392502701458060017}
@@ -132,4 +132,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cc1ec097ddd45198b0c7069fe2905cd, type: 3}
   m_Name: WaitTime
   m_EditorClassIdentifier: 
-  timeInSeconds: 0.1
+  timeInSeconds: 0.2

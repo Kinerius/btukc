@@ -1,6 +1,5 @@
 ﻿using Game.Entities;
 using SkillActions;
-using System;
 using UnityEngine;
 
 namespace SkillEffects.Effects
@@ -8,7 +7,8 @@ namespace SkillEffects.Effects
     [CreateAssetMenu(menuName = "Skills/Effects/KnockBack")]
     public class KnockBack : SkillEffectData
     {
-        private const string EFFECT_TAG = "KnockBack";
+        private const string EFFECT_NAME = "KNOCK_BACK";
+        private static readonly int EFFECT_TAG = EFFECT_NAME.GetHashCode();
 
         [SerializeField] private float knockBackTimeInSeconds;
         [SerializeField] private float knockBackDistance;
@@ -32,11 +32,11 @@ namespace SkillEffects.Effects
                 return false;
             }
 
-            if (targetEntity.HasTag(EFFECT_TAG))
+            if (targetEntity.Tags.HasTag(EFFECT_TAG))
                 return false;
 
-            targetEntity.ApplyTag(EFFECT_TAG);
-            targetEntity.ToggleActions(false, EFFECT_TAG);
+            targetEntity.Tags.ApplyTag(EFFECT_TAG);
+            targetEntity.ToggleActions(false, EFFECT_NAME);
             targetEntity.InterruptActions();
             targetInitialPosition = targetEntity.GetPosition();
             targetPosition = targetInitialPosition + (targetInitialPosition - data.owner.GetPosition()).normalized * knockBackDistance;
@@ -45,8 +45,8 @@ namespace SkillEffects.Effects
 
         public override void Remove()
         {
-            targetEntity.RemoveTag(EFFECT_TAG);
-            targetEntity.ToggleActions(true, EFFECT_TAG);
+            targetEntity.Tags.RemoveTag(EFFECT_TAG);
+            targetEntity.ToggleActions(true, EFFECT_NAME);
         }
 
         public override void Dispose()
@@ -54,7 +54,7 @@ namespace SkillEffects.Effects
             // nothing to dispose
         }
 
-        public override bool Update(float deltaTime)
+        public override bool OnUpdate(float deltaTime)
         {
             currentKnockBackTime += deltaTime;
 

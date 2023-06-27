@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace SkillActions.Actions
 {
-    [CreateAssetMenu(menuName = "Skills/Actions/Spawn Fx")]
     public class SpawnPooledFx: ScriptableAction
     {
         [SerializeField] private FxDestroyAfterFinish prefabGameObject;

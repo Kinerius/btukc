@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace SkillActions.Actions
 {
-    [CreateAssetMenu(menuName = "Skills/Actions/TriggerAnimation")]
     public class TriggerAnimation : ScriptableAction
     {
         [SerializeField] private string animationName;
@@ -48,7 +47,7 @@ namespace SkillActions.Actions
         {
             foreach (var evt in events)
                 if (evt.eventName == eventName)
-                    await evt.action.StartAction(data, environment, skillStats, cancellationToken);
+                    await evt.actions.StartAction(data, environment, skillStats, cancellationToken);
         }
     }
 
@@ -56,6 +55,6 @@ namespace SkillActions.Actions
     public struct AnimationEventData
     {
         public string eventName;
-        public ScriptableAction action;
+        [ActionsEditor] public CompositeScriptableAction actions;
     }
 }

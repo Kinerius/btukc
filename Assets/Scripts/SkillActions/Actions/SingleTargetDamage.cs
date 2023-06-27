@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace SkillActions.Actions
 {
-    [CreateAssetMenu(menuName = "Skills/Actions/SingleTargetDamage")]
     public class SingleTargetDamage : ScriptableAction
     {
         public override UniTask StartAction(SkillActionTriggerData data, LevelManager levelManager,

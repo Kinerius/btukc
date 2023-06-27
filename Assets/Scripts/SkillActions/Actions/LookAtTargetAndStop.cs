@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace SkillActions.Actions
 {
-    [CreateAssetMenu(menuName = "Skills/Actions/LookAtTargetAndStop")]
 
     public class LookAtTargetAndStop : ScriptableAction
     {

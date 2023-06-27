@@ -1,15 +1,15 @@
 ﻿using Cysharp.Threading.Tasks;
 using Game.Level;
 using Stats;
+using System;
 using System.Threading;
 using UnityEngine;
 
 namespace SkillActions.Actions
 {
-    [CreateAssetMenu(menuName = "Skills/Actions/Composite", order = 0)]
     public class CompositeScriptableAction : ScriptableAction
     {
-        [SerializeField] private ScriptableAction[] actions;
+        [SerializeField] public ScriptableAction[] actions = Array.Empty<ScriptableAction>();
 
         public override async UniTask StartAction(SkillActionTriggerData data, LevelManager levelManager, StatRepository skillStats, CancellationToken cancellationToken)
         {

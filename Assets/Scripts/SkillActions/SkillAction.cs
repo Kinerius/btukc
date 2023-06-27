@@ -4,6 +4,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using Game.Level;
 using SkillActions;
+using SkillActions.Actions;
 using Stats;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,17 +14,17 @@ using UnityEngine;
 
 public class SkillAction
 {
-    private readonly List<IAction> sequences;
     private readonly StatRepository statRepository;
     private bool isSetup;
     public Cooldown cooldown { get; private set; }
     public bool isOnUse { get; private set; }
     private CancellationTokenSource cancellationTokenSource;
+    private CompositeScriptableAction actions;
 
     public SkillAction(SkillActionData skillActionData)
     {
         statRepository = new StatRepository(skillActionData.abilityStats);
-        sequences = skillActionData.actions.Select(a => (IAction)a).ToList();
+        actions = skillActionData.actions;
         ResetToken();
     }
 
@@ -71,11 +72,8 @@ public class SkillAction
         try
         {
             data.owner.ToggleActions(false, "SkillAction");
-            foreach (var sequence in sequences)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await sequence.StartAction(data, levelManager, repository, cancellationToken);
-            }
+            await actions.StartAction(data, levelManager, repository, cancellationToken);
+
         }
         catch (OperationCanceledException) { }
         catch (Exception e)

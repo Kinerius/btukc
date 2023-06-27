@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace SkillActions.Actions
 {
-    [CreateAssetMenu(menuName = "Skills/Actions/Apply Effect")]
     public class ApplyEffect : ScriptableAction
     {
         [SerializeField] private SkillEffectData skillEffect;
